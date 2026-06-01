@@ -1,0 +1,23 @@
+[project]
+name = "hw-01"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "apolumestny", email = "anpolumestny@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12, <4.0"
+dependencies = [
+    "structlog (>=25.5.0,<26.0.0)"
+]
+
+[tool.poetry.group.dev.dependencies]
+isort = ">=8.0.1,<9.0.0"
+flake8 = ">=7.3.0,<8.0.0"
+flake8-print = ">=5.0.0,<6.0.0"
+wemake-python-styleguide = ">=1.6.2,<2.0.0"
+pytest = ">=9.0.3,<10.0.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
