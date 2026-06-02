@@ -2,9 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from app.cli import PROJECT_DESCRIPTION
-from app.cli import main
-from app.cli import parse_args
+from app.cli import PROJECT_DESCRIPTION, main, parse_args
 
 
 def test_parse_args_returns_existing_config_path(tmp_path: Path) -> None:
