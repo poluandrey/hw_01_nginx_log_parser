@@ -25,6 +25,7 @@ flake8 = ">=7.3.0,<8.0.0"
 flake8-print = ">=5.0.0,<6.0.0"
 wemake-python-styleguide = ">=1.6.2,<2.0.0"
 pytest = ">=9.0.3,<10.0.0"
+pre-commit = "^4.6.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

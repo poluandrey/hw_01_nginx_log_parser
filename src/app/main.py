@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 
 from app.conf_parser.parser import parse_config
+from app.logger import configure_logger
 
 PROJECT_DESCRIPTION = (
     "Анализатор логов nginx: сервис формирует статистический отчет "
@@ -37,9 +38,23 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
     return build_parser().parse_args(args)
 
 
+def _run_with_config(args: list[str] | None = None) -> None:
+    parsed_args = parse_args(args)
+    parsed_config = parse_config(parsed_args.config)
+    logger = configure_logger(parsed_config.get("LOG_FILE"))
+    logger.info(
+        "config_loaded",
+        config_path=str(parsed_args.config),
+    )
+
+
 def main(args: list[str] | None = None) -> int:
     """CLI entry point."""
-    args = parse_args(args)
-    if args.config:
-        parse_config(args.config)
+    logger = configure_logger()
+    try:
+        _run_with_config(args)
+    except BaseException:
+        logger.error("unexpected_error", exc_info=True)
+        return 1
+
     return 0
