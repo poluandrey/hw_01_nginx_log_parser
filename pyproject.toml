@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [project.scripts]
-log-analyzer = "app.cli:main"
+log-analyzer = "app.main:main"
 
 [tool.poetry]
 packages = [

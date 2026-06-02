@@ -1,6 +1,8 @@
 import argparse
 from pathlib import Path
 
+from app.conf_parser.parser import parse_config
+
 PROJECT_DESCRIPTION = (
     "Анализатор логов nginx: сервис формирует статистический отчет "
     "о характеристиках запросов на основании парсинга логов."
@@ -37,5 +39,7 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
 
 def main(args: list[str] | None = None) -> int:
     """CLI entry point."""
-    parse_args(args)
+    args = parse_args(args)
+    if args.config:
+        parse_config(args.config)
     return 0
