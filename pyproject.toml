@@ -11,6 +11,14 @@ dependencies = [
     "structlog (>=25.5.0,<26.0.0)"
 ]
 
+[project.scripts]
+log-analyzer = "app.cli:main"
+
+[tool.poetry]
+packages = [
+    { include = "app", from = "src" }
+]
+
 [tool.poetry.group.dev.dependencies]
 isort = ">=8.0.1,<9.0.0"
 flake8 = ">=7.3.0,<8.0.0"
