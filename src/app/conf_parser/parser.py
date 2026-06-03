@@ -33,8 +33,11 @@ def _merge_config_line(parsed_config: Config, line: str) -> None:
     parsed_config[config_key] = _parse_config_value(config_key, raw_setting)
 
 
-def parse_config(file_path: str | Path) -> Config:
+def parse_config(file_path: str | Path | None = None) -> Config:
     parsed_config = dict(config)
+    if file_path is None:
+        return parsed_config
+
     with Path(file_path).open("r", encoding="utf-8") as config_file:
         for line in config_file:
             _merge_config_line(parsed_config, line)

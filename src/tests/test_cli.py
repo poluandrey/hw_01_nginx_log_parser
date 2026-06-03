@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from app.main import DEFAULT_CONFIG_PATH, PROJECT_DESCRIPTION, parse_args
+from app.main import PROJECT_DESCRIPTION, parse_args
 
 TEST_ENCODING = "utf-8"
 CONFIG_OPTION = "--config"
@@ -22,10 +22,10 @@ def test_parse_args_exits_on_missing_config() -> None:
         parse_args([CONFIG_OPTION, "missing.yml"])
 
 
-def test_parse_args_uses_default_config_path() -> None:
+def test_parse_args_uses_default_config_module() -> None:
     parsed_args = parse_args([])
 
-    assert parsed_args.config == DEFAULT_CONFIG_PATH
+    assert parsed_args.config is None
 
 
 def test_main_reraises_help_exit() -> None:

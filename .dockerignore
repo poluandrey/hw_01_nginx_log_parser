@@ -1,0 +1,11 @@
+.git
+.github
+.idea
+.mypy_cache
+.pytest_cache
+.venv
+__pycache__
+*.pyc
+reports
+log
+logs
