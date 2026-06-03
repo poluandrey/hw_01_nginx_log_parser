@@ -1,9 +1,11 @@
 import argparse
 from pathlib import Path
 
+from app.analyzer import analyze
 from app.conf_parser.parser import parse_config
 from app.logger import configure_logger
 
+DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / ".env"
 PROJECT_DESCRIPTION = (
     "Анализатор логов nginx: сервис формирует статистический отчет "
     "о характеристиках запросов на основании парсинга логов."
@@ -26,9 +28,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-c",
         "--config",
-        required=True,
         type=existing_file,
-        help="Path to config file.",
+        default=DEFAULT_CONFIG_PATH,
+        help=f"Path to config file. Default: {DEFAULT_CONFIG_PATH}.",
     )
     return parser
 
@@ -46,6 +48,7 @@ def _run_with_config(args: list[str] | None = None) -> None:
         "config_loaded",
         config_path=str(parsed_args.config),
     )
+    analyze(parsed_config, logger)
 
 
 def main(args: list[str] | None = None) -> int:
@@ -53,7 +56,10 @@ def main(args: list[str] | None = None) -> int:
     logger = configure_logger()
     try:
         _run_with_config(args)
-    except BaseException:
+    except KeyboardInterrupt:
+        logger.error("unexpected_error", exc_info=True)
+        return 1
+    except Exception:
         logger.error("unexpected_error", exc_info=True)
         return 1
 
